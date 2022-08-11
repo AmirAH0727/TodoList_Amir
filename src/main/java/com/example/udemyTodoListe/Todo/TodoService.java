@@ -1,0 +1,68 @@
+package com.example.udemyTodoListe.Todo;
+import com.example.udemyTodoListe.Todo.Todo;
+import com.example.udemyTodoListe.Todo.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+
+@Service
+public class TodoService {
+
+	@Autowired
+	private TodoRepository todoRepository;
+
+	// Create
+	public Todo creatTodoInDateBank(Todo newTodo){
+		todoRepository.save(newTodo);
+		return newTodo;
+	}
+
+	// All Todos
+	public List<Todo> getAllTodos(){
+		return todoRepository.findAll();
+	}
+
+	// GET TODO BY ID
+	public Todo findTodoById (int id){
+		Optional <Todo> todoById = todoRepository.findById(id);
+		return todoById.orElse(null);
+	}
+
+	// DELETE TODO BY ID
+	public int deleteById (int id) {
+
+		if (!todoRepository.existsById(id)){
+			return -1;
+		} else {
+			todoRepository.deleteById(id);
+			return id;
+		}
+
+	}
+
+	// UPDATE Todo bei Id
+	public int updateTodoById (Todo todoToUpdate, int id){
+
+		Optional <Todo> updateTodo = todoRepository.findById(id);
+		if (updateTodo.isEmpty()){
+			return -1;
+		}
+		updateTodo.get().setDescription(todoToUpdate.getDescription());
+		updateTodo.get().setIsDone(todoToUpdate.getIsDone());
+		todoRepository.save(updateTodo.get());
+			return  1;
+	}
+
+	// FIND BY NAME
+	public Todo findByDescription (String name){
+		return todoRepository.findByDescription(name);
+
+	}
+
+}
+
+
+
