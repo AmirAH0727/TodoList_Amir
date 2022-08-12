@@ -44,7 +44,7 @@ public class TodoService {
 	}
 
 	// UPDATE Todo bei Id
-	public int updateTodoById (Todo todoToUpdate, int id){
+	public int updateTodoById (int id, Todo todoToUpdate){
 
 		Optional <Todo> updateTodo = todoRepository.findById(id);
 		if (updateTodo.isEmpty()){
@@ -59,9 +59,7 @@ public class TodoService {
 	// FIND BY NAME
 	public Todo findByDescription (String name){
 		return todoRepository.findByDescription(name);
-
 	}
-
 }
 
 

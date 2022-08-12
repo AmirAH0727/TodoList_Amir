@@ -17,7 +17,6 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-
     // ALL TODOS
     @GetMapping("/all")
     public ResponseEntity<List<Todo>> getAllTodos() {
@@ -36,7 +35,6 @@ public class TodoController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     // CREATE TODO
     @PostMapping("/ccTodo")
@@ -90,24 +88,25 @@ public class TodoController {
     @PutMapping("/edit")
     public ResponseEntity<HttpStatus> updateTodoById(@RequestParam int id, @RequestBody Todo todoToUpdate) {
 
-        Map<String, String> massages = new HashMap<>();
-        int result = todoService.updateTodoById(todoToUpdate, id);
-
-        if (result == -1) {
-            massages.put("Description", "Todo not found");
-            return new ResponseEntity(massages, HttpStatus.NOT_FOUND);
+        try{
+            Map<String, String> massages = new HashMap<>();
+            int result = todoService.updateTodoById(id, todoToUpdate);
+            if (result == -1) {
+                massages.put("Description", "Todo not found");
+                return new ResponseEntity(massages, HttpStatus.NOT_FOUND);
+            } else {
+                massages.put("Description", "Todo is updated");
+                return new ResponseEntity(massages, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        massages.put("Description", "Todo is updated");
-        return new ResponseEntity(massages, HttpStatus.OK);
     }
 
     // FIND BY NAME
     @GetMapping("/findByName")
-    public ResponseEntity<Todo> findByName(@RequestParam(value = "name") String name) {
+    public ResponseEntity<Todo> findByDescription(@RequestParam(value = "name") String name) {
         Todo foundTodoByName = todoService.findByDescription(name);
         return new ResponseEntity<Todo>(foundTodoByName, HttpStatus.FOUND);
     }
-
-
 }
