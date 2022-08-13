@@ -1,11 +1,11 @@
 package com.example.udemyTodoListe.Todo;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Todo {
@@ -13,10 +13,13 @@ public class Todo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@NotNull
+	@Size(min = 8, max = 100)
 	private String description;
+	@NotNull
 	private boolean isDone;
+	@NotNull
 	private Integer userId;
-
 
 	public int getId() {
 		return id;

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/td")
 public class TodoController {
@@ -46,10 +45,8 @@ public class TodoController {
     // FIND TODO BY ID
     @GetMapping("/getByID")
     public ResponseEntity<Todo> getByID(@RequestParam(value = "id") int id) {
-
         Todo foundTodoById = todoService.findTodoById(id);
         Map<String, String> errors = new HashMap<>();
-
         try {
             if (!(id <= 0 || foundTodoById == null)) {
                 return new ResponseEntity<Todo>(foundTodoById, HttpStatus.FOUND);
@@ -66,7 +63,6 @@ public class TodoController {
     // DELETE Todo
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteById(@RequestParam(value = "id") int id) {
-
         try {
             Map<String, String> errors = new HashMap<>();
             int result = todoService.deleteById(id);
@@ -81,13 +77,11 @@ public class TodoController {
 
             return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     // UPDATE Todo
     @PutMapping("/edit")
     public ResponseEntity<HttpStatus> updateTodoById(@RequestParam int id, @RequestBody Todo todoToUpdate) {
-
         try{
             Map<String, String> massages = new HashMap<>();
             int result = todoService.updateTodoById(id, todoToUpdate);
@@ -103,7 +97,7 @@ public class TodoController {
         }
     }
 
-    // FIND BY NAME
+    // FIND BY Description
     @GetMapping("/findByName")
     public ResponseEntity<Todo> findByDescription(@RequestParam(value = "name") String name) {
         Todo foundTodoByName = todoService.findByDescription(name);

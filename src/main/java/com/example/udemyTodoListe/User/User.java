@@ -3,8 +3,12 @@ package com.example.udemyTodoListe.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 import com.example.udemyTodoListe.Todo.Todo;
+
 import java.util.*;
 
 @Entity
@@ -14,13 +18,18 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotNull
+	@Email
 	@Column(unique = true, nullable = false)
 	private String email;
 
+	@NotNull
+	@Size(min = 6, message = "Password should have atleast 6 characters")
 	@Column(nullable = false)
 	private String password;
-
 	@Column(nullable = false)
+	@NotNull
+	@Size(min = 3, message = "Username should have atleast 6 characters")
 	private String username;
 
 	@OneToMany
