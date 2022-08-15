@@ -12,8 +12,9 @@ import javax.validation.Valid;
 public class UserController {
 	@Autowired
 	UserService userService;
+
 	@PostMapping("/createUser")
-	public ResponseEntity <User> createUser (@Valid @RequestBody User userBody){
+	public ResponseEntity <User> createUser (@RequestBody @Valid User userBody){
 		User newUser = userService.createNewUser(userBody);
 		return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}

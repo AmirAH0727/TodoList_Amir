@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -13,7 +14,6 @@ import java.util.*;
 
 @Entity
 public class User {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -24,18 +24,19 @@ public class User {
 	private String email;
 
 	@NotNull
+	@NotBlank
 	@Size(min = 6, message = "Password should have atleast 6 characters")
 	@Column(nullable = false)
 	private String password;
-	@Column(nullable = false)
+
 	@NotNull
 	@Size(min = 3, message = "Username should have atleast 6 characters")
+	@Column(nullable = false)
 	private String username;
 
 	@OneToMany
 	@JoinColumn(name = "userId")
 	private Set <Todo> todos;
-
 
 	public void setId(Integer id) {
 		this.id = id;
