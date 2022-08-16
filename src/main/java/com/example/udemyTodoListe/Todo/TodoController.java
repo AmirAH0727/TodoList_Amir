@@ -1,10 +1,12 @@
 package com.example.udemyTodoListe.Todo;
 
+import com.example.udemyTodoListe.validition.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,19 +18,26 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
+    @Autowired
+    private Valid valid;
+
     // ALL TODOS
     @GetMapping("/all")
-    public ResponseEntity<List<Todo>> getAllTodos() {
-        List<Todo> listOfTodosInDateBank = todoService.getAllTodos();
+    public ResponseEntity<List<Todo>> getAllTodos(@RequestParam String state, @RequestParam int limit, @RequestParam int offset) {
 
+        List<Map<String, String>> errors = valid.validTodo(state,limit,offset);
         try {
-            if (listOfTodosInDateBank.size() == 0) {
+            if (errors.size() > 0) {
+                return  new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
+            }
+            final List<Todo> todosList = this.todoService.getAllTodos(state, limit, offset);
+            if (todosList.size() == 0) {
                 Map<String, String> bodyErrors = new HashMap<>();
                 bodyErrors.put("Code", "29");
                 bodyErrors.put("Massage", "Empty list of Todos");
                 return new ResponseEntity(bodyErrors, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(listOfTodosInDateBank, HttpStatus.OK);
+                return new ResponseEntity<>(todosList, HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

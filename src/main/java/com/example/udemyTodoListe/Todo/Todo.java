@@ -14,7 +14,7 @@ public class Todo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull
-	@Size(min = 8, max = 100)
+	@Size(min = 10, max = 100, message = "description should have atleast 10 characters")
 	private String description;
 	@NotNull
 	private boolean isDone;

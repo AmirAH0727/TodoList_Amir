@@ -1,6 +1,5 @@
 package com.example.udemyTodoListe.Todo;
-import com.example.udemyTodoListe.Todo.Todo;
-import com.example.udemyTodoListe.Todo.TodoRepository;
+import com.example.udemyTodoListe.enums.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,16 @@ public class TodoService {
 	}
 
 	// All Todos
-	public List<Todo> getAllTodos(){
-		return todoRepository.findAll();
+	public List<Todo> getAllTodos(String state, int limit, int offset){
+
+		State userState = State.valueOf(state.toUpperCase());
+
+		switch (userState) {
+			case UNFINISHED:  return  todoRepository.getUnfinishedTodos(limit, offset);
+			case All: return todoRepository.getAllTodos(limit,offset);
+			default:
+				return todoRepository.getAllTodos(limit,offset);
+		}
 	}
 
 	// GET TODO BY ID
@@ -60,6 +67,7 @@ public class TodoService {
 	public Todo findByDescription (String name){
 		return todoRepository.findByDescription(name);
 	}
+
 }
 
 
