@@ -1,5 +1,6 @@
 package com.example.udemyTodoListe.User;
 
+import com.example.udemyTodoListe.validition.Phone;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
@@ -17,26 +18,37 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@NotNull
+	@Size(min = 3, message = "Username should have atleast 6 characters")
+	//@Column(nullable = false)
+	private String username;
 	@NotNull
 	@Email
-	@Column(unique = true, nullable = false)
+	// @Column(unique = true, nullable = false)
 	private String email;
 
 	@NotNull
 	@NotBlank
 	@Size(min = 6, message = "Password should have atleast 6 characters")
-	@Column(nullable = false)
+	// @Column(nullable = false)
 	private String password;
 
 	@NotNull
-	@Size(min = 3, message = "Username should have atleast 6 characters")
-	@Column(nullable = false)
-	private String username;
+	@NotBlank
+	@Phone
+	private long phone;
 
 	@OneToMany
 	@JoinColumn(name = "userId")
 	private Set <Todo> todos;
+
+	public long getPhone() {
+		return phone;
+	}
+
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
 
 	public void setId(Integer id) {
 		this.id = id;

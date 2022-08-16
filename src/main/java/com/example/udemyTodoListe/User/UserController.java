@@ -1,11 +1,13 @@
 package com.example.udemyTodoListe.User;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
 import javax.validation.Valid;
+
 
 
 @RestController
@@ -13,8 +15,16 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	private  static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@PostMapping("/createUser")
-	public ResponseEntity <User> createUser (@Valid @RequestBody User userBody){
+	public ResponseEntity <User> createUser (@RequestBody @Valid User userBody){
+
+		LOGGER.info(
+				"RequestBody: email: {}, password: {}",
+				userBody.getEmail(),
+				userBody.getPassword()
+		);
+
 		User newUser = userService.createNewUser(userBody);
 		return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}

@@ -1,7 +1,5 @@
 package com.example.udemyTodoListe.validition;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +13,7 @@ import java.util.Map;
 
 @Configuration
 @Component
-public class Valid {
+public class GetTodosValidator {
 
     public List<Map<String, String>> validTodo(String state, int limit, int offset) {
 
