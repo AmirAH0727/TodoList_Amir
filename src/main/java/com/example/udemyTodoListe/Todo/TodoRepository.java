@@ -11,11 +11,11 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository <Todo, Integer> {
 
     @Query(nativeQuery = true,
-            value = "select * from todo_item ORDER by id limit ?1 offset ?2  ")
+            value = "select * from todo ORDER by id limit ?1 offset ?2  ")
     List<Todo> getAllTodos(int limit, int offset);
 
     @Query(nativeQuery = true,
-            value = "select * from todo_item where done=false ORDER by id limit ?1 offset ?2  ")
+            value = "select * from todo where is_done=false ORDER by id limit ?1 offset ?2  ")
     List<Todo> getUnfinishedTodos(int limit, int offset);
 
 

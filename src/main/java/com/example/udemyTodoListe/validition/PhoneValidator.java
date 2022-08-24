@@ -2,7 +2,6 @@ package com.example.udemyTodoListe.validition;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.annotation.Annotation;
 
 public class PhoneValidator implements ConstraintValidator <Phone, String> {
     @Override
@@ -15,6 +14,6 @@ public class PhoneValidator implements ConstraintValidator <Phone, String> {
         if (value == null){
             return  false;
         }
-        return value.startsWith("*49");
+        return value.startsWith("+49");
     }
 }

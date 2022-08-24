@@ -11,13 +11,15 @@ import javax.validation.Valid;
 
 
 @RestController
+@RequestMapping("/td")
 public class UserController {
 	@Autowired
 	UserService userService;
 
 	private  static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 	@PostMapping("/createUser")
-	public ResponseEntity <User> createUser (@RequestBody @Valid User userBody){
+	public ResponseEntity <User> createUser (@Valid @RequestBody  User userBody){
 
 		LOGGER.info(
 				"RequestBody: email: {}, password: {}",
@@ -28,11 +30,14 @@ public class UserController {
 		User newUser = userService.createNewUser(userBody);
 		return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
+
 	@GetMapping("/userTodos")
 	public ResponseEntity<User> getUserTodos (@RequestParam("id") int id){
 		User userTodosList = userService.findTodosOfUser(id);
 		return  new ResponseEntity<User>(userTodosList, HttpStatus.FOUND);
 	}
+
+
 	@GetMapping("/validate")
 	public boolean userValidate (@RequestParam(value = "email") String email,
 								 @RequestParam(value = "password") String password){

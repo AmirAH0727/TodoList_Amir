@@ -10,8 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 import com.example.udemyTodoListe.Todo.Todo;
-
-import java.util.*;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class User {
@@ -20,33 +19,33 @@ public class User {
 	private int id;
 	@NotNull
 	@Size(min = 3, message = "Username should have atleast 6 characters")
-	//@Column(nullable = false)
-	private String username;
+	@Column(nullable = false)
+	private String userName;
 	@NotNull
 	@Email
-	// @Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private String email;
 
 	@NotNull
 	@NotBlank
-	@Size(min = 6, message = "Password should have atleast 6 characters")
-	// @Column(nullable = false)
+	@Length (min = 6, message = "Password should have atleast 6 characters")
+	@Column(nullable = false)
 	private String password;
 
-	@NotNull
-	@NotBlank
+
 	@Phone
-	private long phone;
+	private String phone;
 
 	@OneToMany
 	@JoinColumn(name = "userId")
 	private Set <Todo> todos;
 
-	public long getPhone() {
+	public String getPhone() {
+
 		return phone;
 	}
 
-	public void setPhone(long phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -81,11 +80,11 @@ public class User {
 	}
 
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.userName = username;
 	}
 
 	public Set<Todo> getTodos() {
@@ -94,5 +93,13 @@ public class User {
 
 	public void setTodos(Set<Todo> todos) {
 		this.todos = todos;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

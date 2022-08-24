@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class TodoController {
 
     // CREATE TODO
     @PostMapping("/ccTodo")
-    public ResponseEntity<Todo> createTodo(@RequestBody Todo newTodo) {
+    public ResponseEntity<Todo> createTodo(@Valid @RequestBody  Todo newTodo) {
         Todo newCreatedTodo = todoService.creatTodoInDateBank(newTodo);
         return new ResponseEntity<>(newCreatedTodo, HttpStatus.OK);
     }
