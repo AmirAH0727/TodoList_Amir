@@ -9,8 +9,11 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	// CREATE NEW USER
 	public User createNewUser(User user) {
@@ -27,7 +30,5 @@ public class UserService {
 	public Optional<User> userValidation(String email, String password){
 		return userRepository.findByEmailAndPassword(email, password);
 	}
-
-
 
 }

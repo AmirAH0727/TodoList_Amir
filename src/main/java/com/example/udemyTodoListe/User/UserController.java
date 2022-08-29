@@ -13,9 +13,13 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/td")
 public class UserController {
-	@Autowired
+
 	UserService userService;
 
+	@Autowired
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
 	private  static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/createUser")
