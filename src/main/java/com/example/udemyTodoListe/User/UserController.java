@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import javax.validation.Valid;
-
+import java.util.List;
 
 
 @RestController
@@ -39,6 +39,14 @@ public class UserController {
 	public ResponseEntity<User> getUserTodos (@RequestParam("id") int id){
 		User userTodosList = userService.findTodosOfUser(id);
 		return  new ResponseEntity<User>(userTodosList, HttpStatus.FOUND);
+	}
+
+
+	@GetMapping("/allUser")
+	public ResponseEntity<List<User>> getAllUser (){
+
+		List <User> allFoundUser = userService.findAllUser();
+		return new ResponseEntity<>(allFoundUser, HttpStatus.OK);
 	}
 
 
