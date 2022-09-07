@@ -1,4 +1,4 @@
-package com.example.udemyTodoListe.Todo;
+package com.example.udemyTodoListe.todo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

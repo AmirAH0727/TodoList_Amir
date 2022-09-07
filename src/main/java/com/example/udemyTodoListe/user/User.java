@@ -1,4 +1,4 @@
-package com.example.udemyTodoListe.User;
+package com.example.udemyTodoListe.user;
 
 import com.example.udemyTodoListe.validition.Phone;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
-import com.example.udemyTodoListe.Todo.Todo;
+import com.example.udemyTodoListe.todo.Todo;
 import org.hibernate.validator.constraints.Length;
 
 @Entity

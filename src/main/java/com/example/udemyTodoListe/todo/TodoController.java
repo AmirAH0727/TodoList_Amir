@@ -1,4 +1,4 @@
-package com.example.udemyTodoListe.Todo;
+package com.example.udemyTodoListe.todo;
 
 import com.example.udemyTodoListe.validition.GetTodosValidator;
 import org.springframework.beans.factory.annotation.Autowired;
