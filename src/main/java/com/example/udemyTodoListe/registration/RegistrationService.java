@@ -2,9 +2,7 @@ package com.example.udemyTodoListe.registration;
 
 
 import com.example.udemyTodoListe.email.EmailSender;
-import com.example.udemyTodoListe.email.EmailService;
 import com.example.udemyTodoListe.registration.token.ConfirmationTokenService;
-import com.example.udemyTodoListe.user.User;
 import com.example.udemyTodoListe.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
